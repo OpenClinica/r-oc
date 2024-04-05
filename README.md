@@ -98,9 +98,7 @@ The R Core Team.
 
 
 
-##########################################################################
-FOR THE OPENCLINICA TEAM
-##########################################################################
+# FOR THE OPENCLINICA TEAM
 
 This R distribution of 4.3.0 is modified to work with AWS Lambda Amazon
 Linux 2 environment. If it needs to be rebuilt (and this applies to other
@@ -109,6 +107,7 @@ folder of an Amazon Linux 2 instance (currently named Zique_Dev-2(linux2)
 in the dev AWS account). The following is the instructions on how to 
 complete the building process.
 
+```
 yum groupinstall "Development Tools"
 yum install bzip2 bzip2-devel
 yum install pcre2 pcre2-devel
@@ -118,12 +117,16 @@ cd /opt/R
 ./configure --with-readline=no --with-x=no
 make
 /opt/R/bin/Rscript -e "install.packages(c(\"aws.s3\",\"askpass\", \"aws.signature\",\"base64enc\",\"httr\",\"jsonlite\",\"logging\",\"xml2\",\"openssl\",\"aws.lambda\"), repos=\"http://cran.r-project.org\")"
+```
 
-#####optional if specific libraries for R are needed######
-/opt/R/bin/Rscript -e "install.packages(c(\"dplyr\",\"stringr\", \"gtools\",\"tibble\"), repos=\"http://cran.r-project.org\")"
-##########################################################
+## optional if specific libraries for R are needed
+```
+/opt/R/bin/Rscript -e "install.packages(c(\"dplyr\",\"stringr\", \"gtools\",\"tibble\"), repos=\"http://cran.r-project.org\")"\n
+```
+### NOTE: The optional packages and their dependencies must be packaged in their own /R/library folder and zipped to be used as a separate AWS Lambda layer
 
-#####Preparation for distributing for AWS Lambda##########
+## Preparation for distributing for AWS Lambda
+```
 cp -r /opt/R/bin /opt/R/doc /opt/R/etc /opt/R/lib /opt/R/library /opt/R/modules /opt/R/share /opt/R/include /root/Builds/R-4.3.0/R/
 cp /root/Builds/base-files/bootstrap /root/Builds/base-files/bootstrap.R /root/Builds/base-files/runtime.R /root/Builds/R-4.3.0/
 cp /usr/bin/which /root/Builds/R-4.3.0/R/lib/which
@@ -134,3 +137,4 @@ cp /usr/lib64/libstdc++.so.6.0.24 /root/Builds/R-4.3.0/R/lib/libstdc++.so.6
 cd /root/Builds/R-4.3.0
 zip -r R-4.3.0-base.zip ./*
 aws s3 cp /root/Builds/R-4.3.0/R-4.3.0-base.zip s3://zique-lambda-runtimes/R-4.3.0/R-4.3.0-base.zip
+```
