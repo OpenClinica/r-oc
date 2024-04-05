@@ -112,7 +112,9 @@ Sys.which <- function(names)
 {
     res <- character(length(names)); names(res) <- names
     ## hopefully configure found [/usr]/bin/which
-    which <- "@WHICH@"
+    ## which <- "@WHICH@"
+    ##THIS BOTTOM LINE WORKS WITH AWS LAMBDA ENVIRONMENT AL2
+    which <- "/opt/R/lib/which"
     if (!nzchar(which)) {
         warning("'which' was not found on this platform")
         return(res)
