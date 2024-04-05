@@ -119,11 +119,11 @@ make
 /opt/R/bin/Rscript -e "install.packages(c(\"aws.s3\",\"askpass\", \"aws.signature\",\"base64enc\",\"httr\",\"jsonlite\",\"logging\",\"xml2\",\"openssl\",\"aws.lambda\"), repos=\"http://cran.r-project.org\")"
 ```
 
-## optional if specific libraries for R are needed
+## Optional command if specific libraries for R are needed
 ```
 /opt/R/bin/Rscript -e "install.packages(c(\"dplyr\",\"stringr\", \"gtools\",\"tibble\"), repos=\"http://cran.r-project.org\")"\n
 ```
-### NOTE: The optional packages and their dependencies must be packaged in their own /R/library folder and zipped to be used as a separate AWS Lambda layer
+NOTE: The optional libraries and their dependencies must be packaged in their own /R/library folder and zipped to be used as a separate AWS Lambda layer. The structure of the directory must be /R/library when zipped. 
 
 ## Preparation for distributing for AWS Lambda
 ```
